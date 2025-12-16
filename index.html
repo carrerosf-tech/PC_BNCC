@@ -26,10 +26,41 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--fundo-cinza);
             color: #334155;
-            padding-top: 100px; /* Espaço maior para o cabeçalho novo */
+            padding-top: 110px; /* Espaço para o cabeçalho fixo */
+            overflow-x: hidden; /* Evita barra de rolagem horizontal */
         }
 
-        /* --- TOPO (HEADER) MAIS BONITO --- */
+        /* --- FAIXA DE PROTÓTIPO (RIBBON) --- */
+        .ribbon-wrapper {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            z-index: 99999; /* Fica acima de tudo */
+            pointer-events: none; /* Permite clicar no site atrás da área transparente */
+        }
+
+        .ribbon {
+            position: absolute;
+            top: 30px;
+            right: -40px;
+            width: 200px;
+            background: linear-gradient(#f59e0b, #d97706); /* Laranja Dourado */
+            color: white;
+            text-align: center;
+            transform: rotate(45deg);
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 8px 0;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* --- TOPO (HEADER) --- */
         .navbar {
             position: fixed; top: 0; width: 100%; height: 100px;
             background: white;
@@ -42,6 +73,7 @@
 
         .brand-area {
             display: flex; flex-direction: column; justify-content: center;
+            max-width: 60%;
         }
 
         .brand-logo {
@@ -51,16 +83,16 @@
 
         .brand-subtitle {
             font-size: 0.8rem; color: #64748b; font-weight: 400; margin-top: 4px;
-            max-width: 500px; line-height: 1.2;
+            line-height: 1.2;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
-        /* Botões do Menu (Pill Shape) */
-        .nav-items { display: flex; gap: 10px; background: #f1f5f9; padding: 5px; border-radius: 50px; }
+        /* Botões do Menu */
+        .nav-items { display: flex; gap: 8px; background: #f1f5f9; padding: 5px; border-radius: 50px; }
         
         .nav-btn {
             border: none; background: transparent;
-            padding: 8px 20px; border-radius: 40px;
+            padding: 8px 15px; border-radius: 40px;
             font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.9rem; color: #64748b;
             cursor: pointer; transition: all 0.3s ease;
         }
@@ -69,7 +101,7 @@
         .nav-btn.ativo { background: var(--azul-escuro); color: white; box-shadow: 0 2px 10px rgba(0, 75, 133, 0.3); }
 
 
-        /* --- ESTRUTURA --- */
+        /* --- ESTRUTURA GERAL --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
         .tela { display: none; animation: slideUp 0.5s ease-out; }
         .tela.visivel { display: block; }
@@ -84,7 +116,7 @@
             position: relative; overflow: hidden; margin-bottom: 40px;
             box-shadow: 0 10px 30px rgba(0, 75, 133, 0.25);
         }
-        /* Efeito de textura geométrica */
+        /* Textura geométrica */
         .hero-banner::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(255,255,255,0.15) 2px, transparent 2px);
@@ -97,10 +129,11 @@
 
         /* Status Bar */
         .status-row {
-            display: flex; gap: 20px; margin-bottom: 50px;
+            display: flex; gap: 20px; margin-bottom: 50px; flex-wrap: wrap;
         }
         .status-card {
-            flex: 1; background: white; padding: 20px; border-radius: 12px;
+            flex: 1; min-width: 200px;
+            background: white; padding: 20px; border-radius: 12px;
             box-shadow: var(--sombra-card); border-left: 5px solid var(--azul-escuro);
             display: flex; align-items: center; justify-content: space-between;
         }
@@ -120,8 +153,8 @@
         .pilar-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
 
 
-        /* --- RECURSOS (REDESENHADO) --- */
-        .recursos-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        /* --- RECURSOS --- */
+        .recursos-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
         
         .recurso-coluna {
             background: white; border-radius: 15px; padding: 0; 
@@ -149,7 +182,7 @@
 
         /* --- BUSCA BNCC --- */
         .bncc-hero {
-            text-align: center; padding: 40px; background: white; border-radius: 15px;
+            text-align: center; padding: 50px 20px; background: white; border-radius: 15px;
             box-shadow: var(--sombra-card); margin-bottom: 30px;
         }
         .input-group {
@@ -163,15 +196,19 @@
         .btn-search {
             background: var(--azul-escuro); color: white; border: none;
             padding: 0 35px; border-radius: 50px; font-weight: 600; cursor: pointer;
+            transition: 0.3s;
         }
+        .btn-search:hover { background: var(--azul-medio); }
+        
         .result-panel {
             display: none; background: #f0fdf4; border: 1px solid #bbf7d0;
-            padding: 25px; border-radius: 12px; margin-top: 20px; text-align: left;
+            padding: 25px; border-radius: 12px; margin-top: 30px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;
         }
 
         /* --- ATIVIDADES (CARDS) --- */
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--sombra-card); border: 1px solid #e2e8f0; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--sombra-card); border: 1px solid #e2e8f0; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
         .card-top { height: 100px; background: #f8fafc; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; }
         .badge { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; padding: 4px 10px; border-radius: 12px; font-weight: bold; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .card-info { padding: 20px; }
@@ -179,19 +216,23 @@
 
 
         /* Footer */
-        footer { margin-top: 80px; text-align: center; color: #94a3b8; font-size: 0.85rem; padding-bottom: 20px; }
+        footer { margin-top: 80px; text-align: center; color: #94a3b8; font-size: 0.85rem; padding-bottom: 30px; border-top: 1px solid #e2e8f0; padding-top: 30px; }
 
     </style>
 </head>
 <body>
+
+    <div class="ribbon-wrapper">
+        <div class="ribbon">Protótipo Acadêmico</div>
+    </div>
 
     <nav class="navbar">
         <div class="brand-area">
             <div class="brand-logo">
                 <span style="font-size: 1.8rem;">🎓</span> Portal PC & BNCC
             </div>
-            <div class="brand-subtitle" title="Pensamento Computacional no Ensino Fundamental: análise de práticas e desenvolvimento de uma plataforma para professores">
-                Pensamento Computacional no Ensino Fundamental: análise de práticas e desenvolvimento de uma plataforma para professores
+            <div class="brand-subtitle">
+                Pensamento Computacional no Ensino Fundamental: análise de práticas e desenvolvimento de uma plataforma
             </div>
         </div>
         
@@ -368,6 +409,13 @@
                         <p style="font-size: 0.9rem; color: #666;">Algoritmos de classificação.</p>
                     </div>
                 </div>
+                 <div class="card">
+                    <div class="card-top">🌱 <span class="badge" style="color:#b91c1c;">Desplugada</span></div>
+                    <div class="card-info">
+                        <div class="card-title">Padrões na Natureza</div>
+                        <p style="font-size: 0.9rem; color: #666;">Reconhecimento de padrões.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -397,8 +445,9 @@
     </div>
 
     <footer>
-        <p><strong>Universidade Estadual de Londrina - 2026</strong></p>
-        <p>Mestrando: Sérgio Fernando Carrero | Orientador: Prof. Dr. Jacques Duílio Brancher</p>
+        <p><strong>Universidade Estadual de Londrina (UEL) - 2026</strong></p>
+        <p>Pesquisa: Análise de práticas e desenvolvimento de plataforma para professores</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Mestrando: Sérgio Fernando Carrero | Orientador: Prof. Dr. Jacques Duílio Brancher</p>
     </footer>
 
     <script>
